@@ -1,12 +1,26 @@
 .App {
-  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("./backgrounds/Priest-Undead.jpg");
+  background-size: cover;
+  overflow: hidden;
   text-align: center;
   height: 100vh;
 }
 
+.name-and-ability-pane {
+  background-color: rgba(0, 0, 0, .6);
+  border-radius: 30px;
+  padding: 30px;
+  opacity: 50;
+  width: 50%;
+  min-width: 450px;
+  margin: 0, auto;
+}
+
 @keyframes exitAnimation {
   0% {
-    /* transform: scale(3); */
     opacity: 1;
     box-shadow: 0 0 40px 5px #ffffb3;
   }
@@ -30,7 +44,6 @@
     margin-right: 0px;
   }
   100% {
-    /* transform: scale(1); */
     margin-left: 0px;
     margin-right: 30px;
     box-shadow: 0 0 40px 5px red;
@@ -58,14 +71,16 @@
 .current-ability-animate {
   animation-name: exitAnimation;
   animation-duration: 500ms;
-  animation-fill-mode: forwards;
-  /* animation-iteration-count: infinite; */
 }
 
 .current-ability-init {
   animation-name: initAnimation;
   animation-duration: 250ms;
-  animation-fill-mode: forwards;
+}
+
+.current-ability {
+  box-shadow: 0 0 60px 10px #0040ff;
+  border-radius: 10px;
 }
 
 .current-ability-container {
@@ -77,7 +92,6 @@
 
 .wow-class-name {
   color: white;
-  padding-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,4 +101,28 @@
   margin-right: 20px;
   width: 50px;
   height: 50px;
+}
+
+.abilities-mapped{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.individual-ability-mapped{
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 2em;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+input{
+  width: 60px;
+  background: rgba(255,255,255,.2);
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: .8em;
 }
