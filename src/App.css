@@ -2,33 +2,56 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+@keyframes myAnimation {
+  0% {
+    transform: scale(3);
+    opacity: 1;
+  }
+  25% {
+    margin-left: 0;
+    margin-bottom: 0;
+    /* border: 10px solid yellow; */
+    /* border-radius: 7px; */
+    box-shadow: 0 0 20px 10px red;
+    opacity: 0.25;
+  }
+  50% {
+    /* transform: scale(1); */
+    opacity: 0.75;
+    border: none;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    transform: scale(.2);
+    margin-left: 450px;
+    margin-bottom: 450px;
+    display: none;
+  }
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.current-ability-animate {
+  animation-name: myAnimation;
+  animation-duration: 500ms;
+  /* animation-fill-mode: forwards; */
+  /* animation-iteration-count: infinite; */
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.wow-class-name{
+.current-ability-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 400px;
+}
+
+.wow-class-name {
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wow-class-name-icon {
+  width: 50px;
+  height: 50px;
 }
