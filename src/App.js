@@ -9,7 +9,7 @@ import priestIcon from "./wowiconpack/Characters and Creatures/priest.png";
 const abilityArray = [
   { ability: swp, bind: "3" },
   { ability: psychicScream, bind: "c" },
-  { ability: shadowFiend, bind: "2" }
+  { ability: shadowFiend, bind: "r" }
 ];
 
 class App extends Component {
@@ -20,9 +20,22 @@ class App extends Component {
     nextAbility: abilityArray[Math.floor(Math.random() * abilityArray.length)]
   };
 
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
+
+  escFunction = theKey => {
+    if (theKey.key === this.state.nextAbility.bind) this.onSubmit();
+    else this.onIncorrect();
+    console.log(theKey, "was pressed");
+  };
+
   onSubmit = () => {
     this.setState({ clicked: true });
-    
+
     setTimeout(() => {
       this.getNextAbility();
       this.setState({ clicked: false, new: true });
@@ -31,11 +44,11 @@ class App extends Component {
 
   onIncorrect = () => {
     this.setState({ incorrect: true });
-    
+
     setTimeout(() => {
       this.setState({ incorrect: false, new: false });
     }, 500); // wait half a second, then reset to false
-  }
+  };
 
   getNextAbility = () => {
     this.setState({
@@ -44,11 +57,11 @@ class App extends Component {
   };
 
   getAnimationState = () => {
-    console.log(this.state)
+    console.log(this.state);
     if (this.state.clicked) return "current-ability-animate";
     if (this.state.incorrect) return "current-ability-incorrect";
     if (this.state.new) return "current-ability-init";
-  }
+  };
 
   render() {
     // let nextAbility = this.getNextAbility();
