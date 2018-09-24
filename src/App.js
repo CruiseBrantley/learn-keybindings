@@ -2,22 +2,56 @@ import React, { Component } from "react";
 import "./App.css";
 // import Priest from "./components/classes/priest.js";
 import swp from "./wowiconpack/Spells/ShadowWordPain.png";
+import psychicScream from "./wowiconpack/Spells/PsychicScream.png";
+import shadowFiend from "./wowiconpack/Spells/Shadowfiend.png";
 import priestIcon from "./wowiconpack/Characters and Creatures/priest.png";
+
+const abilityArray = [
+  { ability: swp, bind: "3" },
+  { ability: psychicScream, bind: "c" },
+  { ability: shadowFiend, bind: "2" }
+];
 
 class App extends Component {
   state = {
-    clicked: false
+    clicked: false,
+    incorrect: false,
+    new: true,
+    nextAbility: abilityArray[Math.floor(Math.random() * abilityArray.length)]
   };
 
   onSubmit = () => {
     this.setState({ clicked: true });
-
+    
     setTimeout(() => {
-      this.setState({ clicked: false });
-    }, 500); // wait 5 seconds, then reset to false
+      this.getNextAbility();
+      this.setState({ clicked: false, new: true });
+    }, 500); // wait half a second, then reset to false
   };
 
+  onIncorrect = () => {
+    this.setState({ incorrect: true });
+    
+    setTimeout(() => {
+      this.setState({ incorrect: false, new: false });
+    }, 500); // wait half a second, then reset to false
+  }
+
+  getNextAbility = () => {
+    this.setState({
+      nextAbility: abilityArray[Math.floor(Math.random() * abilityArray.length)]
+    });
+  };
+
+  getAnimationState = () => {
+    console.log(this.state)
+    if (this.state.clicked) return "current-ability-animate";
+    if (this.state.incorrect) return "current-ability-incorrect";
+    if (this.state.new) return "current-ability-init";
+  }
+
   render() {
+    // let nextAbility = this.getNextAbility();
     return (
       <div className="App">
         <div className={"wow-class-name"}>
@@ -27,12 +61,12 @@ class App extends Component {
         <div className="current-ability-container">
           <img
             onClick={this.onSubmit}
-            className={ this.state.clicked ? "current-ability-animate" : ""}
-            src={swp}
+            className={this.getAnimationState()}
+            src={this.state.nextAbility.ability}
             alt={""}
           />
         </div>
-        {/* <button onClick={this.onSubmit}>X</button> */}
+        <button onClick={this.onIncorrect}>X</button>
       </div>
     );
   }

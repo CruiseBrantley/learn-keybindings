@@ -1,23 +1,16 @@
 .App {
+  background: black;
   text-align: center;
+  height: 100vh;
 }
 
-@keyframes myAnimation {
+@keyframes exitAnimation {
   0% {
-    transform: scale(3);
+    /* transform: scale(3); */
     opacity: 1;
+    box-shadow: 0 0 40px 5px #ffffb3;
   }
   25% {
-    margin-left: 0;
-    margin-bottom: 0;
-    /* border: 10px solid yellow; */
-    /* border-radius: 7px; */
-    box-shadow: 0 0 20px 10px red;
-    opacity: 0.25;
-  }
-  50% {
-    /* transform: scale(1); */
-    opacity: 0.75;
     border: none;
   }
   100% {
@@ -30,28 +23,68 @@
   }
 }
 
+@keyframes incorrectAnimation {
+  0%{
+    box-shadow: 0 0 40px 5px red;
+    margin-left: 30px;
+    margin-right: 0px;
+  }
+  100% {
+    /* transform: scale(1); */
+    margin-left: 0px;
+    margin-right: 30px;
+    box-shadow: 0 0 40px 5px red;
+  }
+}
+
+@keyframes initAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(3);
+  }
+
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.current-ability-incorrect {
+  animation-name: incorrectAnimation;
+  animation-duration: 20ms;
+  animation-iteration-count: 10;
+}
+
 .current-ability-animate {
-  animation-name: myAnimation;
+  animation-name: exitAnimation;
   animation-duration: 500ms;
-  /* animation-fill-mode: forwards; */
+  animation-fill-mode: forwards;
   /* animation-iteration-count: infinite; */
+}
+
+.current-ability-init {
+  animation-name: initAnimation;
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
 }
 
 .current-ability-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 500px;
 }
 
 .wow-class-name {
-  margin-top: 200px;
+  color: white;
+  padding-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .wow-class-name-icon {
+  margin-right: 20px;
   width: 50px;
   height: 50px;
 }
