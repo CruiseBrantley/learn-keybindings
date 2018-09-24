@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Priest from "./components/classes/priest.js";
+import swp from "./wowiconpack/Spells/ShadowWordPain.png";
+import priestIcon from "./wowiconpack/Characters and Creatures/priest.png";
 
 class App extends Component {
   render() {
@@ -11,9 +13,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
+        <div className={"wow-class-name"}>
+          <img src={priestIcon} className={"wow-class-name-icon"}/>
           <Priest/>
-        </p>
+        </div>
+          <img src={swp}/>
       </div>
     );
   }
