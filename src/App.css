@@ -64,18 +64,20 @@
 
 .current-ability-incorrect {
   animation-name: incorrectAnimation;
-  animation-duration: 20ms;
+  animation-duration: 30ms;
   animation-iteration-count: 10;
 }
 
 .current-ability-animate {
   animation-name: exitAnimation;
   animation-duration: 500ms;
+  animation-fill-mode: forwards;
 }
 
 .current-ability-init {
   animation-name: initAnimation;
   animation-duration: 250ms;
+  animation-fill-mode: forwards;
 }
 
 .current-ability {
