@@ -1,5 +1,6 @@
 .App {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-image: url("./backgrounds/Priest-Undead.jpg");
@@ -10,10 +11,9 @@
 }
 
 .name-and-ability-pane {
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 30px;
   padding: 30px;
-  opacity: 50;
   width: 50%;
   min-width: 450px;
   margin: 0, auto;
@@ -62,6 +62,26 @@
   }
 }
 
+.linked-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  min-width: 450px;
+  margin: 0, auto;
+}
+
+.link-to-class {
+  color: white;
+  text-decoration: none;
+  margin: 10px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+}
+
 .current-ability-incorrect {
   animation-name: incorrectAnimation;
   animation-duration: 30ms;
@@ -105,13 +125,13 @@
   height: 50px;
 }
 
-.abilities-mapped{
-  display:flex;
+.abilities-mapped {
+  display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.individual-ability-mapped{
+.individual-ability-mapped {
   display: flex;
   flex-direction: column;
   color: white;
@@ -120,11 +140,11 @@
   margin-right: 10px;
 }
 
-input{
+input {
   width: 60px;
-  background: rgba(255,255,255,.2);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: white;
   text-align: center;
-  font-size: .8em;
+  font-size: 0.8em;
 }

@@ -15,16 +15,16 @@ class Priest extends Component {
     nextAbility: {},
     textField: "",
     abilityArray: [
-      { ability: swp, bind: "3" },
-      { ability: psychicScream, bind: "c" },
-      { ability: shadowFiend, bind: "r" },
-      { ability: mindFlay, bind: "2"},
-      { ability: mindBlast, bind: "4"},
+      { ability: swp, bind: "" },
+      { ability: psychicScream, bind: "" },
+      { ability: shadowFiend, bind: "" },
+      { ability: mindFlay, bind: "" },
+      { ability: mindBlast, bind: "" }
     ]
   };
 
   componentDidMount() {
-    this.setState({nextAbility: this.state.abilityArray[Math.floor(Math.random() * this.state.abilityArray.length)]})
+    this.getNextAbility();
     document.addEventListener("keydown", this.keyRead, false);
   }
   componentWillUnmount() {
@@ -41,8 +41,10 @@ class Priest extends Component {
   onChange = (e, index) => {
     const tempArray = this.state.abilityArray;
     tempArray[index].bind = e.target.value;
-    this.setState({[this.state.nextAbility]: tempArray})
-  }
+    this.setState({ abilityArray: tempArray });
+    if (!this.state.nextAbility || this.state.nextAbility.bind === "")
+      this.getNextAbility();
+  };
 
   onSubmit = () => {
     this.setState({ clicked: true });
@@ -62,18 +64,30 @@ class Priest extends Component {
   };
 
   getNextAbility = () => {
-    this.setState({
-      nextAbility: this.state.abilityArray[Math.floor(Math.random() * this.state.abilityArray.length)]
+    const filteredAbilities = this.state.abilityArray.filter(ability => {
+      return ability.bind !== "";
     });
+    // console.log("called getNext: ", filteredAbilities);
+    if (filteredAbilities.length > 0) {
+      this.setState({
+        nextAbility:
+          filteredAbilities[
+            Math.floor(Math.random() * filteredAbilities.length)
+          ]
+      });
+      console.log("Set new abilities: ", this.state.nextAbility);
+    } else {
+      this.setState({ nextAbility: false });
+    }
   };
 
   onFocus = () => {
-    this.setState({editing: true});
-  }
+    this.setState({ editing: true });
+  };
 
   onBlur = () => {
-    this.setState({editing: false});
-  }
+    this.setState({ editing: false });
+  };
 
   getAnimationClassName = () => {
     if (this.state.clicked) return "current-ability-animate current-ability";
@@ -85,30 +99,39 @@ class Priest extends Component {
 
   render() {
     return (
-        <div className="name-and-ability-pane">
-          <div className={"wow-class-name"}>
-            <img src={priestIcon} className={"wow-class-name-icon"} alt={""} />
-            <h1>Priest</h1>
-          </div>
-          <div className="current-ability-container">
+      <div className="name-and-ability-pane">
+        <div className={"wow-class-name"}>
+          <img src={priestIcon} className={"wow-class-name-icon"} alt={""} />
+          <h1>Priest</h1>
+        </div>
+        <div className="current-ability-container">
+          {this.state.nextAbility ? (
             <img
               onClick={this.onSubmit}
               className={this.getAnimationClassName()}
               src={this.state.nextAbility.ability}
               alt={""}
             />
-          </div>
-          <div className={"abilities-mapped"}>
-            {this.state.abilityArray.map((item, index) => {
-              return (
-                <div key={index} className={"individual-ability-mapped"}>
-                  <img src={item.ability} alt={""} />
-                  <input value={this.state.abilityArray[index].bind} onChange={e => this.onChange(e, index)} onFocus={this.onFocus} onBlur={this.onBlur}/>
-                </div>
-              );
-            })}
-          </div>
+          ) : (
+            <h3 className="link-to-class">Try binding some abilities.</h3>
+          )}
         </div>
+        <div className={"abilities-mapped"}>
+          {this.state.abilityArray.map((item, index) => {
+            return (
+              <div key={index} className={"individual-ability-mapped"}>
+                <img src={item.ability} alt={""} />
+                <input
+                  value={this.state.abilityArray[index].bind}
+                  onChange={e => this.onChange(e, index)}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     );
   }
 }
