@@ -3,8 +3,7 @@ import { Route, Link } from "react-router-dom";
 import "./App.css";
 import ClassPage from "./components/classpage.js";
 
-import PriestIcon from "./wowiconpack/Characters and Creatures/priest.png";
-import { PriestAbilities } from "./components/abilities&icons";
+import { PriestIcon, PriestAbilities } from "./components/abilities&icons";
 
 class App extends Component {
   render() {

@@ -1,8 +1,12 @@
+import Priest from "../wowiconpack/Characters and Creatures/priest.png";
+
 import swp from "../wowiconpack/Spells/ShadowWordPain.png";
 import psychicScream from "../wowiconpack/Spells/PsychicScream.png";
 import shadowFiend from "../wowiconpack/Spells/Shadowfiend.png";
 import mindFlay from "../wowiconpack/Spells/SiphonMana.png";
 import mindBlast from "../wowiconpack/Spells/UnholyFrenzy.png";
+
+export const PriestIcon = Priest;
 
 export const PriestAbilities = [
   { ability: swp, bind: "" },
