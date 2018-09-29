@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import "./App.css";
-import Priest from "./components/classes/priest.js";
+import ClassPage from "./components/classpage.js";
+
+import PriestIcon from "./wowiconpack/Characters and Creatures/priest.png";
+import { PriestAbilities } from "./components/abilities";
 
 class App extends Component {
   render() {
@@ -59,7 +62,17 @@ class App extends Component {
             </Link>
           </h3>
         </div>
-        <Route exact path="/priest" component={Priest} />
+        <Route
+          exact
+          path="/priest"
+          render={() => (
+            <ClassPage
+              wowclass="Priest"
+              classIcon={PriestIcon}
+              abilities={PriestAbilities}
+            />
+          )}
+        />
       </div>
     );
   }

@@ -1,10 +1,4 @@
 import React, { Component } from "react";
-import priestIcon from "../../wowiconpack/Characters and Creatures/priest.png";
-import swp from "../../wowiconpack/Spells/ShadowWordPain.png";
-import psychicScream from "../../wowiconpack/Spells/PsychicScream.png";
-import shadowFiend from "../../wowiconpack/Spells/Shadowfiend.png";
-import mindFlay from "../../wowiconpack/Spells/SiphonMana.png";
-import mindBlast from "../../wowiconpack/Spells/UnholyFrenzy.png";
 
 class Priest extends Component {
   state = {
@@ -14,13 +8,7 @@ class Priest extends Component {
     editing: false,
     nextAbility: {},
     textField: "",
-    abilityArray: [
-      { ability: swp, bind: "" },
-      { ability: psychicScream, bind: "" },
-      { ability: shadowFiend, bind: "" },
-      { ability: mindFlay, bind: "" },
-      { ability: mindBlast, bind: "" }
-    ]
+    abilityArray: this.props.abilities
   };
 
   componentDidMount() {
@@ -101,8 +89,12 @@ class Priest extends Component {
     return (
       <div className="name-and-ability-pane">
         <div className={"wow-class-name"}>
-          <img src={priestIcon} className={"wow-class-name-icon"} alt={""} />
-          <h1>Priest</h1>
+          <img
+            src={this.props.classIcon}
+            className={"wow-class-name-icon"}
+            alt={""}
+          />
+          <h1>{this.props.wowclass}</h1>
         </div>
         <div className="current-ability-container">
           {this.state.nextAbility ? (
