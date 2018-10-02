@@ -4,6 +4,10 @@ import "./App.css";
 import ClassPage from "./components/classpage.js";
 
 import { PriestIcon, PriestAbilities } from "./components/abilities&icons";
+import {
+  DemonHunterIcon,
+  DemonHunterAbilities
+} from "./components/abilities&icons";
 
 class App extends Component {
   render() {
@@ -41,7 +45,7 @@ class App extends Component {
             </Link>
           </h3>
           <h3>
-            <Link to="/priest" className="link-to-class">
+            <Link to="/demonhunter" className="link-to-class">
               Demon Hunter
             </Link>
           </h3>
@@ -69,6 +73,17 @@ class App extends Component {
               wowclass="Priest"
               classIcon={PriestIcon}
               abilities={PriestAbilities}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/demonhunter"
+          render={() => (
+            <ClassPage
+              wowclass="Demon Hunter"
+              classIcon={DemonHunterIcon}
+              abilities={DemonHunterAbilities}
             />
           )}
         />
