@@ -55,7 +55,6 @@ class Priest extends Component {
     const filteredAbilities = this.state.abilityArray.filter(ability => {
       return ability.bind !== "";
     });
-    // console.log("called getNext: ", filteredAbilities);
     if (filteredAbilities.length > 0) {
       this.setState({
         nextAbility:
@@ -63,7 +62,6 @@ class Priest extends Component {
             Math.floor(Math.random() * filteredAbilities.length)
           ]
       });
-      console.log("Set new abilities: ", this.state.nextAbility);
     } else {
       this.setState({ nextAbility: false });
     }
@@ -98,12 +96,17 @@ class Priest extends Component {
         </div>
         <div className="current-ability-container">
           {this.state.nextAbility ? (
-            <img
-              onClick={this.onSubmit}
-              className={this.getAnimationClassName()}
-              src={this.state.nextAbility.ability}
-              alt={""}
-            />
+            <div className={"next-ability"}>
+              <img
+                onClick={this.onSubmit}
+                className={this.getAnimationClassName()}
+                src={this.state.nextAbility.ability}
+                alt={""}
+              />
+              <span className={"next-ability-name"}>
+                {this.state.nextAbility.name}
+              </span>
+            </div>
           ) : (
             <h3 className="link-to-class">Try binding some abilities.</h3>
           )}
@@ -112,7 +115,11 @@ class Priest extends Component {
           {this.state.abilityArray.map((item, index) => {
             return (
               <div key={index} className={"individual-ability-mapped"}>
-                <img src={item.ability} alt={""} />
+                <img
+                  src={item.ability}
+                  alt={""}
+                  className={"individual-ability-img"}
+                />
                 <input
                   value={this.state.abilityArray[index].bind}
                   onChange={e => this.onChange(e, index)}

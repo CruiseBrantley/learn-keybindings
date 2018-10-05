@@ -3,8 +3,9 @@ import { Route, Link } from "react-router-dom";
 import "./App.css";
 import ClassPage from "./components/classpage.js";
 
-import { PriestIcon, PriestAbilities } from "./components/abilities&icons";
 import {
+  PriestIcon,
+  PriestAbilities,
   DemonHunterIcon,
   DemonHunterAbilities
 } from "./components/abilities&icons";

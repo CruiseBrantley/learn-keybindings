@@ -104,6 +104,7 @@
   box-shadow: 0 0 60px 10px #0040ff;
   border-radius: 10px;
   height: 100px;
+  width: 100px;
 }
 
 .current-ability-container {
@@ -140,6 +141,23 @@
   font-size: 2em;
   margin-left: 5px;
   margin-bottom: 5px;
+}
+
+.individual-ability-img {
+  height: 60px;
+}
+
+.next-ability {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.next-ability-name {
+  color: white;
+  margin-top: 20px;
+  font-size: 1.5rem;
 }
 
 input {
