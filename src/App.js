@@ -27,29 +27,22 @@ class App extends Component {
   };
 
   getClassAbilities = (classURL, whichState) => {
-    const classSkills = { name: [], ability: [] };
-    const buildSkills = [];
-
     axios.get(classURL).then(response => {
       const classSkillsList = response.data.feed.entry;
+      const buildSkills = [];
+      let newSkill = {};
       for (let i = 3; i < classSkillsList.length; i++) {
-        if (i % 2) classSkills.name.push(classSkillsList[i].content.$t);
-        else {
-          classSkills.ability.push(
-            require("./wowiconpack/Spells/" +
-              classSkillsList[i].content.$t +
-              ".png")
-          );
+        if (i % 2) {
+          newSkill = { ability: "", bind: "", name: "" };
+          newSkill.name = classSkillsList[i].content.$t;
+          console.log(classSkillsList[i].content.$t);
+        } else {
+          newSkill.ability = require("./wowiconpack/Spells/" +
+            classSkillsList[i].content.$t +
+            ".png");
+          buildSkills.push(newSkill);
         }
       }
-      for (let i = 0; i < classSkills.name.length; i++) {
-        buildSkills.push({
-          ability: classSkills.ability[i],
-          bind: "",
-          name: classSkills.name[i]
-        });
-      }
-      console.log(buildSkills);
       this.setState({ [whichState]: buildSkills });
     });
   };
