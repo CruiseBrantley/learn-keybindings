@@ -84,54 +84,58 @@ class Priest extends Component {
   };
 
   render() {
-    return (
-      <div className="name-and-ability-pane">
-        <div className={"wow-class-name"}>
-          <img
-            src={this.props.classIcon}
-            className={"wow-class-name-icon"}
-            alt={""}
-          />
-          <h1>{this.props.wowclass}</h1>
-        </div>
-        <div className="current-ability-container">
-          {this.state.nextAbility ? (
-            <div className={"next-ability"}>
-              <img
-                onClick={this.onSubmit}
-                className={this.getAnimationClassName()}
-                src={this.state.nextAbility.ability}
-                alt={""}
-              />
-              <span className={"next-ability-name"}>
-                {this.state.nextAbility.name}
-              </span>
-            </div>
-          ) : (
-            <h3 className="link-to-class">Try binding some abilities.</h3>
-          )}
-        </div>
-        <div className={"abilities-mapped"}>
-          {this.state.abilityArray.map((item, index) => {
-            return (
-              <div key={index} className={"individual-ability-mapped"}>
+    if (Array.isArray(this.state.abilityArray)) {
+      return (
+        <div className="name-and-ability-pane">
+          <div className={"wow-class-name"}>
+            <img
+              src={this.props.classIcon}
+              className={"wow-class-name-icon"}
+              alt={""}
+            />
+            <h1>{this.props.wowclass}</h1>
+          </div>
+          <div className="current-ability-container">
+            {this.state.nextAbility ? (
+              <div className={"next-ability"}>
                 <img
-                  src={item.ability}
+                  onClick={this.onSubmit}
+                  className={this.getAnimationClassName()}
+                  src={this.state.nextAbility.ability}
                   alt={""}
-                  className={"individual-ability-img"}
                 />
-                <input
-                  value={this.state.abilityArray[index].bind}
-                  onChange={e => this.onChange(e, index)}
-                  onFocus={this.onFocus}
-                  onBlur={this.onBlur}
-                />
+                <span className={"next-ability-name"}>
+                  {this.state.nextAbility.name}
+                </span>
               </div>
-            );
-          })}
+            ) : (
+              <h3 className="link-to-class">Try binding some abilities.</h3>
+            )}
+          </div>
+          <div className={"abilities-mapped"}>
+            {this.state.abilityArray.map((item, index) => {
+              return (
+                <div key={index} className={"individual-ability-mapped"}>
+                  <img
+                    src={item.ability}
+                    alt={""}
+                    className={"individual-ability-img"}
+                  />
+                  <input
+                    value={this.state.abilityArray[index].bind}
+                    onChange={e => this.onChange(e, index)}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <h1>Loading...</h1>;
+    }
   }
 }
 
