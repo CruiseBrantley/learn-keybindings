@@ -4,7 +4,10 @@ import "./App.css";
 import ClassPage from "./components/classpage.js";
 import axios from "axios";
 
-import { PriestIcon, DemonHunterIcon } from "./components/abilities&icons";
+import PriestIcon from "./wowiconpack/Spells/priest.png";
+import DemonHunterIcon from "./wowiconpack/Spells/demonhunter.jpg";
+import DruidIcon from "./wowiconpack/Spells/druid.png";
+import HunterIcon from "./wowiconpack/Spells/hunter.png";
 
 const druidURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/4/public/basic?alt=json";
@@ -50,13 +53,6 @@ class App extends Component {
       console.log(buildSkills);
       this.setState({ [whichState]: buildSkills });
     });
-  };
-
-  componentDidMount = () => {
-    this.getClassAbilities(hunterURL, "hunterSkills");
-    this.getClassAbilities(druidURL, "druidSkills");
-    this.getClassAbilities(priestURL, "priestSkills");
-    this.getClassAbilities(dhURL, "dhSkills");
   };
 
   render() {
@@ -114,58 +110,69 @@ class App extends Component {
             </Link>
           </h3>
         </div>
-        {this.state.priestSkills !== null ? (
-          <Route
-            exact
-            path="/priest"
-            render={() => (
+        <Route
+          exact
+          path="/priest"
+          render={() =>
+            this.state.priestSkills !== null ? (
               <ClassPage
                 wowclass="Priest"
                 classIcon={PriestIcon}
                 abilities={this.state.priestSkills}
               />
-            )}
-          />
-        ) : null}
-        {this.state.dhSkills !== null ? (
-          <Route
-            exact
-            path="/demonhunter"
-            render={() => (
+            ) : (
+              (this.getClassAbilities(priestURL, "priestSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/demonhunter"
+          render={() =>
+            this.state.dhSkills !== null ? (
               <ClassPage
                 wowclass="Demon Hunter"
                 classIcon={DemonHunterIcon}
                 abilities={this.state.dhSkills}
               />
-            )}
-          />
-        ) : null}
-        {this.state.hunterSkills !== null ? (
-          <Route
-            exact
-            path="/hunter"
-            render={() => (
+            ) : (
+              (this.getClassAbilities(dhURL, "dhSkills"), <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/hunter"
+          render={() =>
+            this.state.hunterSkills !== null ? (
               <ClassPage
                 wowclass="Hunter"
-                classIcon={DemonHunterIcon}
+                classIcon={HunterIcon}
                 abilities={this.state.hunterSkills}
               />
-            )}
-          />
-        ) : null}
-        {this.state.druidSkills !== null ? (
-          <Route
-            exact
-            path="/druid"
-            render={() => (
+            ) : (
+              (this.getClassAbilities(hunterURL, "hunterSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/druid"
+          render={() =>
+            this.state.druidSkills !== null ? (
               <ClassPage
                 wowclass="Druid"
-                classIcon={DemonHunterIcon}
+                classIcon={DruidIcon}
                 abilities={this.state.druidSkills}
               />
-            )}
-          />
-        ) : null}
+            ) : (
+              (this.getClassAbilities(druidURL, "druidSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
       </div>
     );
   }
