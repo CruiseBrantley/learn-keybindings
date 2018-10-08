@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Priest extends Component {
+class ClassPage extends Component {
   state = {
     clicked: false,
     incorrect: false,
@@ -139,4 +139,4 @@ class Priest extends Component {
   }
 }
 
-export default Priest;
+export default ClassPage;
