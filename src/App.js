@@ -27,7 +27,7 @@ class App extends Component {
   };
 
   getClassAbilities = (classURL, whichState) => {
-    const classSkills = { name: [], bind: [], ability: [] };
+    const classSkills = { name: [], ability: [] };
     const buildSkills = [];
 
     axios.get(classURL).then(response => {
@@ -40,13 +40,12 @@ class App extends Component {
               classSkillsList[i].content.$t +
               ".png")
           );
-          classSkills.bind.push("");
         }
       }
       for (let i = 0; i < classSkills.name.length; i++) {
         buildSkills.push({
           ability: classSkills.ability[i],
-          bind: classSkills.bind[i],
+          bind: "",
           name: classSkills.name[i]
         });
       }
