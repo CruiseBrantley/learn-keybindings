@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactTooltip from "react-tooltip";
 
 class ClassPage extends Component {
   state = {
@@ -99,7 +100,6 @@ class ClassPage extends Component {
             {this.state.nextAbility ? (
               <div className={"next-ability"}>
                 <img
-                  onClick={this.onSubmit}
                   className={this.getAnimationClassName()}
                   src={this.state.nextAbility.ability}
                   alt={""}
@@ -117,6 +117,7 @@ class ClassPage extends Component {
               return (
                 <div key={index} className={"individual-ability-mapped"}>
                   <img
+                    data-tip={item.name}
                     src={item.ability}
                     alt={""}
                     className={"individual-ability-img"}
@@ -131,6 +132,7 @@ class ClassPage extends Component {
               );
             })}
           </div>
+          <ReactTooltip place="bottom" type="dark" effect="solid" />
         </div>
       );
     } else {

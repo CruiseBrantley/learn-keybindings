@@ -35,7 +35,6 @@ class App extends Component {
         if (i % 2) {
           newSkill = { ability: "", bind: "", name: "" };
           newSkill.name = classSkillsList[i].content.$t;
-          console.log(classSkillsList[i].content.$t);
         } else {
           newSkill.ability = require("./wowiconpack/Spells/" +
             classSkillsList[i].content.$t +
