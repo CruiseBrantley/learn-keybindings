@@ -3,6 +3,7 @@ import { Route, Link } from "react-router-dom";
 import "./App.css";
 import ClassPage from "./components/classpage.js";
 import axios from "axios";
+// import { google } from "googleapis";
 
 import PriestIcon from "./wowiconpack/Spells/priest.png";
 import DemonHunterIcon from "./wowiconpack/Spells/demonhunter.jpg";
@@ -38,6 +39,14 @@ class App extends Component {
     rogueSkills: null
   };
 
+  // testGoogleAPI = () => {
+  //   const sheets = google.sheets({ version: "v4" });
+  //   sheets.spreadsheets.values
+  //     .get("1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo")
+  //     .then(response => console.log(response))
+  //     .catch(err => console.log("There was an error"));
+  // };
+
   getClassAbilities = (classURL, whichState) => {
     axios.get(classURL).then(response => {
       const classSkillsList = response.data.feed.entry;
@@ -59,6 +68,7 @@ class App extends Component {
   };
 
   render() {
+    // this.testGoogleAPI();
     return (
       <div className="App">
         <div className="linked-list">

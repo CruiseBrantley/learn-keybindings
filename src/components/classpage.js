@@ -27,9 +27,31 @@ class ClassPage extends Component {
     }
   };
 
+  onClickIcon = e => {
+    e.preventDefault();
+    if (e.type === "click" && this.state.nextAbility.bind === "LC")
+      this.onSubmit();
+    else if (e.type === "contextmenu" && this.state.nextAbility.bind === "RC")
+      this.onSubmit();
+    else this.onIncorrect();
+  };
+
   onChange = (e, index) => {
     const tempArray = this.state.abilityArray;
     tempArray[index].bind = e.target.value;
+    this.setState({ abilityArray: tempArray });
+    if (!this.state.nextAbility || this.state.nextAbility.bind === "")
+      this.getNextAbility();
+  };
+
+  onImgClick = (e, index) => {
+    e.preventDefault();
+    const tempArray = this.state.abilityArray;
+    if (e.type === "click") {
+      tempArray[index].bind = "LC";
+    } else if (e.type === "contextmenu") {
+      tempArray[index].bind = "RC";
+    }
     this.setState({ abilityArray: tempArray });
     if (!this.state.nextAbility || this.state.nextAbility.bind === "")
       this.getNextAbility();
@@ -101,6 +123,8 @@ class ClassPage extends Component {
               <img
                 className={this.getAnimationClassName()}
                 src={this.state.nextAbility.ability}
+                onClick={this.onClickIcon}
+                onContextMenu={this.onClickIcon}
                 alt={""}
               />
               <span className={"next-ability-name"}>
@@ -119,6 +143,8 @@ class ClassPage extends Component {
                   data-tip={item.name}
                   src={item.ability}
                   alt={""}
+                  onClick={e => this.onImgClick(e, index)}
+                  onContextMenu={e => this.onImgClick(e, index)}
                   className={"individual-ability-img"}
                 />
                 <input
