@@ -8,7 +8,16 @@ import PriestIcon from "./wowiconpack/Spells/priest.png";
 import DemonHunterIcon from "./wowiconpack/Spells/demonhunter.jpg";
 import DruidIcon from "./wowiconpack/Spells/druid.png";
 import HunterIcon from "./wowiconpack/Spells/hunter.png";
+import ShamanIcon from "./wowiconpack/Spells/shaman.png";
+import WarlockIcon from "./wowiconpack/Spells/warlock.png";
+import RogueIcon from "./wowiconpack/Spells/rogue.png";
 
+const rogueURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/7/public/basic?alt=json";
+const warlockURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/6/public/basic?alt=json";
+const shamanURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/5/public/basic?alt=json";
 const druidURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/4/public/basic?alt=json";
 const hunterURL =
@@ -23,7 +32,10 @@ class App extends Component {
     hunterSkills: null,
     dhSkills: null,
     priestSkills: null,
-    druidSkills: null
+    druidSkills: null,
+    shamanSkills: null,
+    warlockSkills: null,
+    rogueSkills: null
   };
 
   getClassAbilities = (classURL, whichState) => {
@@ -56,17 +68,17 @@ class App extends Component {
             </Link>
           </h3>
           <h3>
-            <Link to="/priest" className="link-to-class">
+            <Link to="/rogue" className="link-to-class">
               Rogue
             </Link>
           </h3>
-          <h3>
+          {/* <h3>
             <Link to="/priest" className="link-to-class">
               Death Knight
             </Link>
-          </h3>
+          </h3> */}
           <h3>
-            <Link to="/priest" className="link-to-class">
+            <Link to="/shaman" className="link-to-class">
               Shaman
             </Link>
           </h3>
@@ -75,23 +87,23 @@ class App extends Component {
               Druid
             </Link>
           </h3>
-          <h3>
+          {/* <h3>
             <Link to="/priest" className="link-to-class">
               Monk
             </Link>
-          </h3>
+          </h3> */}
           <h3>
             <Link to="/demonhunter" className="link-to-class">
               Demon Hunter
             </Link>
           </h3>
-          <h3>
+          {/* <h3>
             <Link to="/priest" className="link-to-class">
               Mage
             </Link>
-          </h3>
+          </h3> */}
           <h3>
-            <Link to="/priest" className="link-to-class">
+            <Link to="/warlock" className="link-to-class">
               Warlock
             </Link>
           </h3>
@@ -160,6 +172,54 @@ class App extends Component {
               />
             ) : (
               (this.getClassAbilities(druidURL, "druidSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/shaman"
+          render={() =>
+            this.state.shamanSkills !== null ? (
+              <ClassPage
+                wowclass="Shaman"
+                classIcon={ShamanIcon}
+                abilities={this.state.shamanSkills}
+              />
+            ) : (
+              (this.getClassAbilities(shamanURL, "shamanSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/warlock"
+          render={() =>
+            this.state.warlockSkills !== null ? (
+              <ClassPage
+                wowclass="Warlock"
+                classIcon={WarlockIcon}
+                abilities={this.state.warlockSkills}
+              />
+            ) : (
+              (this.getClassAbilities(warlockURL, "warlockSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/rogue"
+          render={() =>
+            this.state.rogueSkills !== null ? (
+              <ClassPage
+                wowclass="Rogue"
+                classIcon={RogueIcon}
+                abilities={this.state.rogueSkills}
+              />
+            ) : (
+              (this.getClassAbilities(rogueURL, "rogueSkills"),
               <h1>Loading...</h1>)
             )
           }
