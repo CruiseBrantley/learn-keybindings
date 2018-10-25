@@ -7,6 +7,7 @@ class ClassPage extends Component {
     incorrect: false,
     new: true,
     editing: false,
+    index: null,
     nextAbility: {},
     textField: "",
     abilityArray: this.props.abilities
@@ -21,10 +22,65 @@ class ClassPage extends Component {
   }
 
   keyRead = theKey => {
-    if (this.state.editing === false && theKey.key !== "Shift") {
-      if (theKey.key === this.state.nextAbility.bind) this.onSubmit();
+    theKey.preventDefault();
+    if (this.state.editing) {
+      if (theKey.key === "Backspace") {
+        const tempArray = this.state.abilityArray;
+        tempArray[this.state.index].bind = "";
+        this.setState({ abilityArray: tempArray });
+      } else if (theKey.shiftKey && theKey.key !== "Shift") {
+        const tempArray = this.state.abilityArray;
+        tempArray[this.state.index].bind = "S+" + theKey.key.toUpperCase();
+        this.setState({ abilityArray: tempArray });
+      } else if (theKey.ctrlKey && theKey.key !== "Control") {
+        const tempArray = this.state.abilityArray;
+        tempArray[this.state.index].bind = "C+" + theKey.key.toUpperCase();
+        this.setState({ abilityArray: tempArray });
+      } else if (theKey.altKey && theKey.key !== "Alt") {
+        const tempArray = this.state.abilityArray;
+        tempArray[this.state.index].bind = "A+" + theKey.key.toUpperCase();
+        this.setState({ abilityArray: tempArray });
+      } else if (
+        theKey.key !== "Shift" &&
+        theKey.key !== "Control" &&
+        theKey.key !== "Alt"
+      ) {
+        const tempArray = this.state.abilityArray;
+        tempArray[this.state.index].bind = theKey.key.toUpperCase();
+        this.setState({ abilityArray: tempArray });
+      }
+    } else if (
+      !this.state.editing &&
+      theKey.key !== "Shift" &&
+      theKey.key !== "Control" &&
+      theKey.key !== "Alt"
+    ) {
+      if (
+        !theKey.shiftKey &&
+        !theKey.ctrlKey &&
+        !theKey.altKey &&
+        theKey.key.toUpperCase() === this.state.nextAbility.bind
+      )
+        this.onSubmit();
+      else if (
+        theKey.shiftKey &&
+        "S+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
+      )
+        this.onSubmit();
+      else if (
+        theKey.ctrlKey &&
+        "C+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
+      )
+        this.onSubmit();
+      else if (
+        theKey.altKey &&
+        "A+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
+      )
+        this.onSubmit();
       else this.onIncorrect();
     }
+    if (!this.state.nextAbility || this.state.nextAbility.bind === "")
+      this.getNextAbility();
   };
 
   onClickIcon = e => {
@@ -37,11 +93,12 @@ class ClassPage extends Component {
   };
 
   onChange = (e, index) => {
-    const tempArray = this.state.abilityArray;
-    tempArray[index].bind = e.target.value;
-    this.setState({ abilityArray: tempArray });
-    if (!this.state.nextAbility || this.state.nextAbility.bind === "")
-      this.getNextAbility();
+    e.preventDefault();
+    // const tempArray = this.state.abilityArray;
+    // tempArray[index].bind = e.target.value;
+    // this.setState({ abilityArray: tempArray });
+    // if (!this.state.nextAbility || this.state.nextAbility.bind === "")
+    //   this.getNextAbility();
   };
 
   onImgClick = (e, index) => {
@@ -90,8 +147,8 @@ class ClassPage extends Component {
     }
   };
 
-  onFocus = () => {
-    this.setState({ editing: true });
+  onFocus = index => {
+    this.setState({ editing: true, index: index });
   };
 
   onBlur = () => {
@@ -150,7 +207,7 @@ class ClassPage extends Component {
                 <input
                   value={this.state.abilityArray[index].bind}
                   onChange={e => this.onChange(e, index)}
-                  onFocus={this.onFocus}
+                  onFocus={() => this.onFocus(index)}
                   onBlur={this.onBlur}
                 />
               </div>
