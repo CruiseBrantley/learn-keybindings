@@ -83,31 +83,58 @@ class ClassPage extends Component {
       this.getNextAbility();
   };
 
-  onClickIcon = e => {
+  onIconClick = e => {
     e.preventDefault();
-    if (e.type === "click" && this.state.nextAbility.bind === "LC")
-      this.onSubmit();
-    else if (e.type === "contextmenu" && this.state.nextAbility.bind === "RC")
-      this.onSubmit();
-    else this.onIncorrect();
+    if (e.type === "click") {
+      if (
+        this.state.nextAbility.bind === "LC" &&
+        !e.shiftKey &&
+        !e.ctrlKey &&
+        !e.altKey
+      )
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "S+LC" && e.shiftKey)
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "C+LC" && e.ctrlKey)
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "A+LC" && e.altKey)
+        this.onSubmit();
+      else this.onIncorrect();
+    } else if (e.type === "contextmenu") {
+      if (
+        this.state.nextAbility.bind === "RC" &&
+        !e.shiftKey &&
+        !e.ctrlKey &&
+        !e.altKey
+      )
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "S+RC" && e.shiftKey)
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "C+RC" && e.ctrlKey)
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "A+RC" && e.altKey)
+        this.onSubmit();
+      else this.onIncorrect();
+    } else this.onIncorrect();
   };
 
   onChange = (e, index) => {
     e.preventDefault();
-    // const tempArray = this.state.abilityArray;
-    // tempArray[index].bind = e.target.value;
-    // this.setState({ abilityArray: tempArray });
-    // if (!this.state.nextAbility || this.state.nextAbility.bind === "")
-    //   this.getNextAbility();
   };
 
   onImgClick = (e, index) => {
     e.preventDefault();
     const tempArray = this.state.abilityArray;
     if (e.type === "click") {
-      tempArray[index].bind = "LC";
+      if (e.shiftKey) tempArray[index].bind = "S+LC";
+      else if (e.ctrlKey) tempArray[index].bind = "C+LC";
+      else if (e.altKey) tempArray[index].bind = "A+LC";
+      else tempArray[index].bind = "LC";
     } else if (e.type === "contextmenu") {
-      tempArray[index].bind = "RC";
+      if (e.shiftKey) tempArray[index].bind = "S+RC";
+      else if (e.ctrlKey) tempArray[index].bind = "C+RC";
+      else if (e.altKey) tempArray[index].bind = "A+RC";
+      else tempArray[index].bind = "RC";
     }
     this.setState({ abilityArray: tempArray });
     if (!this.state.nextAbility || this.state.nextAbility.bind === "")
@@ -180,8 +207,8 @@ class ClassPage extends Component {
               <img
                 className={this.getAnimationClassName()}
                 src={this.state.nextAbility.ability}
-                onClick={this.onClickIcon}
-                onContextMenu={this.onClickIcon}
+                onClick={this.onIconClick}
+                onContextMenu={this.onIconClick}
                 alt={""}
               />
               <span className={"next-ability-name"}>
