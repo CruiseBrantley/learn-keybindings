@@ -12,7 +12,13 @@ import HunterIcon from "./wowiconpack/Spells/hunter.png";
 import ShamanIcon from "./wowiconpack/Spells/shaman.png";
 import WarlockIcon from "./wowiconpack/Spells/warlock.png";
 import RogueIcon from "./wowiconpack/Spells/rogue.png";
+import PaladinIcon from "./wowiconpack/Spells/paladin.png";
+import MonkIcon from "./wowiconpack/Spells/monk.jpg";
 
+const paladinURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/9/public/basic?alt=json";
+const monkURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/8/public/basic?alt=json";
 const rogueURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/7/public/basic?alt=json";
 const warlockURL =
@@ -36,7 +42,9 @@ class App extends Component {
     druidSkills: null,
     shamanSkills: null,
     warlockSkills: null,
-    rogueSkills: null
+    rogueSkills: null,
+    monkSkills: null,
+    paladinSkills: null
   };
 
   // testGoogleAPI = () => {
@@ -93,15 +101,20 @@ class App extends Component {
             </Link>
           </h3>
           <h3>
+            <Link to="/paladin" className="link-to-class">
+              Paladin
+            </Link>
+          </h3>
+          <h3>
             <Link to="/druid" className="link-to-class">
               Druid
             </Link>
           </h3>
-          {/* <h3>
-            <Link to="/priest" className="link-to-class">
+          <h3>
+            <Link to="/monk" className="link-to-class">
               Monk
             </Link>
-          </h3> */}
+          </h3>
           <h3>
             <Link to="/demonhunter" className="link-to-class">
               Demon Hunter
@@ -198,6 +211,38 @@ class App extends Component {
               />
             ) : (
               (this.getClassAbilities(shamanURL, "shamanSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/paladin"
+          render={() =>
+            this.state.paladinSkills !== null ? (
+              <ClassPage
+                wowclass="Paladin"
+                classIcon={PaladinIcon}
+                abilities={this.state.paladinSkills}
+              />
+            ) : (
+              (this.getClassAbilities(paladinURL, "paladinSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/monk"
+          render={() =>
+            this.state.monkSkills !== null ? (
+              <ClassPage
+                wowclass="Monk"
+                classIcon={MonkIcon}
+                abilities={this.state.monkSkills}
+              />
+            ) : (
+              (this.getClassAbilities(monkURL, "monkSkills"),
               <h1>Loading...</h1>)
             )
           }
