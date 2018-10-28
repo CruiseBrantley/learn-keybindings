@@ -250,7 +250,9 @@ class ClassPage extends Component {
               </span>
             </div>
           ) : (
-            <h3 className="link-to-class">Try binding some abilities.</h3>
+            <h3 className="link-to-class">
+              Try binding some abilities by clicking below the icon
+            </h3>
           )}
         </div>
         <div

@@ -98,66 +98,62 @@ class App extends Component {
     return (
       <div className="App">
         <div className="linked-list">
-          <h3>
-            <Link to="/warrior" className="link-to-class">
-              Warrior
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/priest" className="link-to-class">
-              Priest
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/rogue" className="link-to-class">
-              Rogue
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/deathknight" className="link-to-class">
-              Death Knight
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/shaman" className="link-to-class">
-              Shaman
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/paladin" className="link-to-class">
-              Paladin
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/druid" className="link-to-class">
-              Druid
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/monk" className="link-to-class">
-              Monk
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/demonhunter" className="link-to-class">
-              Demon Hunter
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/mage" className="link-to-class">
-              Mage
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/warlock" className="link-to-class">
-              Warlock
-            </Link>
-          </h3>
-          <h3>
-            <Link to="/hunter" className="link-to-class">
-              Hunter
-            </Link>
-          </h3>
+          <Link to="/warrior">
+            <img
+              src={WarriorIcon}
+              className={"linked-list-icon"}
+              alt="Warrior"
+            />
+          </Link>
+          <Link to="/priest">
+            <img src={PriestIcon} className={"linked-list-icon"} alt="Priest" />
+          </Link>
+          <Link to="/rogue">
+            <img src={RogueIcon} className={"linked-list-icon"} alt="Rogue" />
+          </Link>
+          <Link to="/deathknight">
+            <img
+              src={DeathKnightIcon}
+              className={"linked-list-icon"}
+              alt="Death Knight"
+            />
+          </Link>
+          <Link to="/shaman">
+            <img src={ShamanIcon} className={"linked-list-icon"} alt="Shaman" />
+          </Link>
+          <Link to="/paladin">
+            <img
+              src={PaladinIcon}
+              className={"linked-list-icon"}
+              alt="Paladin"
+            />
+          </Link>
+          <Link to="/druid">
+            <img src={DruidIcon} className={"linked-list-icon"} alt="Druid" />
+          </Link>
+          <Link to="/monk">
+            <img src={MonkIcon} className={"linked-list-icon"} alt="Monk" />
+          </Link>
+          <Link to="/demonhunter">
+            <img
+              src={DemonHunterIcon}
+              className={"linked-list-icon"}
+              alt="Demon Hunter"
+            />
+          </Link>
+          <Link to="/mage">
+            <img src={MageIcon} className={"linked-list-icon"} alt="Mage" />
+          </Link>
+          <Link to="/warlock">
+            <img
+              src={WarlockIcon}
+              className={"linked-list-icon"}
+              alt="Warlock"
+            />
+          </Link>
+          <Link to="/hunter">
+            <img src={HunterIcon} className={"linked-list-icon"} alt="Hunter" />
+          </Link>
         </div>
         <Route
           exact
