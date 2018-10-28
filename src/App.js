@@ -13,8 +13,11 @@ import ShamanIcon from "./wowiconpack/Spells/shaman.png";
 import WarlockIcon from "./wowiconpack/Spells/warlock.png";
 import RogueIcon from "./wowiconpack/Spells/rogue.png";
 import PaladinIcon from "./wowiconpack/Spells/paladin.png";
+import WarriorIcon from "./wowiconpack/Spells/warrior.png";
 import MonkIcon from "./wowiconpack/Spells/monk.jpg";
 
+const warriorURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/10/public/basic?alt=json";
 const paladinURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/9/public/basic?alt=json";
 const monkURL =
@@ -44,7 +47,8 @@ class App extends Component {
     warlockSkills: null,
     rogueSkills: null,
     monkSkills: null,
-    paladinSkills: null
+    paladinSkills: null,
+    warriorSkills: null
   };
 
   // testGoogleAPI = () => {
@@ -81,6 +85,11 @@ class App extends Component {
       <div className="App">
         <div className="linked-list">
           <h3>
+            <Link to="/warrior" className="link-to-class">
+              Warrior
+            </Link>
+          </h3>
+          <h3>
             <Link to="/priest" className="link-to-class">
               Priest
             </Link>
@@ -91,7 +100,7 @@ class App extends Component {
             </Link>
           </h3>
           {/* <h3>
-            <Link to="/priest" className="link-to-class">
+            <Link to="/deathknight" className="link-to-class">
               Death Knight
             </Link>
           </h3> */}
@@ -121,7 +130,7 @@ class App extends Component {
             </Link>
           </h3>
           {/* <h3>
-            <Link to="/priest" className="link-to-class">
+            <Link to="/mage" className="link-to-class">
               Mage
             </Link>
           </h3> */}
@@ -136,6 +145,22 @@ class App extends Component {
             </Link>
           </h3>
         </div>
+        <Route
+          exact
+          path="/warrior"
+          render={() =>
+            this.state.warriorSkills !== null ? (
+              <ClassPage
+                wowclass="Warrior"
+                classIcon={WarriorIcon}
+                abilities={this.state.warriorSkills}
+              />
+            ) : (
+              (this.getClassAbilities(warriorURL, "warriorSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
         <Route
           exact
           path="/priest"
