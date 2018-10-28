@@ -74,6 +74,7 @@
 }
 
 .link-to-class {
+  cursor: pointer;
   color: white;
   text-decoration: none;
   margin: 10px;
@@ -101,6 +102,7 @@
 }
 
 .current-ability {
+  cursor: pointer;
   box-shadow: 0 0 60px 10px #0040ff;
   border-radius: 10px;
   height: 100px;
@@ -146,6 +148,7 @@
 }
 
 .individual-ability-img {
+  cursor: pointer;
   height: 60px;
 }
 
