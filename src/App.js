@@ -60,6 +60,12 @@ class App extends Component {
   // };
 
   getClassAbilities = (classURL, whichState) => {
+    const localClassSave = localStorage.getItem(whichState);
+    if (localClassSave) {
+      this.setState({ [whichState]: JSON.parse(localClassSave) });
+      return;
+    }
+
     axios.get(classURL).then(response => {
       const classSkillsList = response.data.feed.entry;
       const buildSkills = [];
@@ -154,6 +160,7 @@ class App extends Component {
                 wowclass="Warrior"
                 classIcon={WarriorIcon}
                 abilities={this.state.warriorSkills}
+                whichState="warriorSkills"
               />
             ) : (
               (this.getClassAbilities(warriorURL, "warriorSkills"),
@@ -170,6 +177,7 @@ class App extends Component {
                 wowclass="Priest"
                 classIcon={PriestIcon}
                 abilities={this.state.priestSkills}
+                whichState="priestSkills"
               />
             ) : (
               (this.getClassAbilities(priestURL, "priestSkills"),
@@ -186,6 +194,7 @@ class App extends Component {
                 wowclass="Demon Hunter"
                 classIcon={DemonHunterIcon}
                 abilities={this.state.dhSkills}
+                whichState="dhSkills"
               />
             ) : (
               (this.getClassAbilities(dhURL, "dhSkills"), <h1>Loading...</h1>)
@@ -201,6 +210,7 @@ class App extends Component {
                 wowclass="Hunter"
                 classIcon={HunterIcon}
                 abilities={this.state.hunterSkills}
+                whichState="hunterSkills"
               />
             ) : (
               (this.getClassAbilities(hunterURL, "hunterSkills"),
@@ -217,6 +227,7 @@ class App extends Component {
                 wowclass="Druid"
                 classIcon={DruidIcon}
                 abilities={this.state.druidSkills}
+                whichState="druidSkills"
               />
             ) : (
               (this.getClassAbilities(druidURL, "druidSkills"),
@@ -233,6 +244,7 @@ class App extends Component {
                 wowclass="Shaman"
                 classIcon={ShamanIcon}
                 abilities={this.state.shamanSkills}
+                whichState="shamanSkills"
               />
             ) : (
               (this.getClassAbilities(shamanURL, "shamanSkills"),
@@ -249,6 +261,7 @@ class App extends Component {
                 wowclass="Paladin"
                 classIcon={PaladinIcon}
                 abilities={this.state.paladinSkills}
+                whichState="paladinSkills"
               />
             ) : (
               (this.getClassAbilities(paladinURL, "paladinSkills"),
@@ -265,6 +278,7 @@ class App extends Component {
                 wowclass="Monk"
                 classIcon={MonkIcon}
                 abilities={this.state.monkSkills}
+                whichState="monkSkills"
               />
             ) : (
               (this.getClassAbilities(monkURL, "monkSkills"),
@@ -281,6 +295,7 @@ class App extends Component {
                 wowclass="Warlock"
                 classIcon={WarlockIcon}
                 abilities={this.state.warlockSkills}
+                whichState="warlockSkills"
               />
             ) : (
               (this.getClassAbilities(warlockURL, "warlockSkills"),
@@ -297,6 +312,7 @@ class App extends Component {
                 wowclass="Rogue"
                 classIcon={RogueIcon}
                 abilities={this.state.rogueSkills}
+                whichState="rogueSkills"
               />
             ) : (
               (this.getClassAbilities(rogueURL, "rogueSkills"),

@@ -21,6 +21,19 @@ class ClassPage extends Component {
     document.removeEventListener("keydown", this.keyRead, false);
   }
 
+  onSave = () => {
+    localStorage.setItem(
+      this.props.whichState,
+      JSON.stringify(this.state.abilityArray)
+    );
+    this.setState({ new: this.state.new });
+  };
+
+  onDelete = () => {
+    localStorage.removeItem(this.props.whichState);
+    this.setState({ new: this.state.new });
+  };
+
   keyRead = theKey => {
     theKey.preventDefault();
     if (this.state.editing) {
@@ -241,6 +254,10 @@ class ClassPage extends Component {
             );
           })}
         </div>
+        <button onClick={this.onSave}>Save Bindings</button>
+        {localStorage.getItem(this.props.whichState) ? (
+          <button onClick={this.onDelete}>Delete Saved Bindings</button>
+        ) : null}
         <ReactTooltip place="bottom" type="dark" effect="solid" />
       </div>
     );
