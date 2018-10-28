@@ -43,15 +43,15 @@ class ClassPage extends Component {
         this.setState({ abilityArray: tempArray });
       } else if (theKey.shiftKey && theKey.key !== "Shift") {
         const tempArray = this.state.abilityArray;
-        tempArray[this.state.index].bind = "S+" + theKey.key.toUpperCase();
+        tempArray[this.state.index].bind = "Shift+" + theKey.key.toUpperCase();
         this.setState({ abilityArray: tempArray });
       } else if (theKey.ctrlKey && theKey.key !== "Control") {
         const tempArray = this.state.abilityArray;
-        tempArray[this.state.index].bind = "C+" + theKey.key.toUpperCase();
+        tempArray[this.state.index].bind = "Ctrl+" + theKey.key.toUpperCase();
         this.setState({ abilityArray: tempArray });
       } else if (theKey.altKey && theKey.key !== "Alt") {
         const tempArray = this.state.abilityArray;
-        tempArray[this.state.index].bind = "A+" + theKey.key.toUpperCase();
+        tempArray[this.state.index].bind = "Alt+" + theKey.key.toUpperCase();
         this.setState({ abilityArray: tempArray });
       } else if (
         theKey.key !== "Shift" &&
@@ -77,17 +77,17 @@ class ClassPage extends Component {
         this.onSubmit();
       else if (
         theKey.shiftKey &&
-        "S+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
+        "Shift+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
       )
         this.onSubmit();
       else if (
         theKey.ctrlKey &&
-        "C+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
+        "Ctrl+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
       )
         this.onSubmit();
       else if (
         theKey.altKey &&
-        "A+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
+        "Alt+" + theKey.key.toUpperCase() === this.state.nextAbility.bind
       )
         this.onSubmit();
       else this.onIncorrect();
@@ -100,47 +100,47 @@ class ClassPage extends Component {
     e.preventDefault();
     if (e.button === 0) {
       if (
-        this.state.nextAbility.bind === "LC" &&
+        this.state.nextAbility.bind === "LeftCl" &&
         !e.shiftKey &&
         !e.ctrlKey &&
         !e.altKey
       )
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "S+LC" && e.shiftKey)
+      else if (this.state.nextAbility.bind === "Shift+LeftCl" && e.shiftKey)
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "C+LC" && e.ctrlKey)
+      else if (this.state.nextAbility.bind === "Ctrl+LeftCl" && e.ctrlKey)
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "A+LC" && e.altKey)
+      else if (this.state.nextAbility.bind === "Alt+LeftCl" && e.altKey)
         this.onSubmit();
       else this.onIncorrect();
     } else if (e.button === 1) {
       if (
-        this.state.nextAbility.bind === "MC" &&
+        this.state.nextAbility.bind === "MidCl" &&
         !e.shiftKey &&
         !e.ctrlKey &&
         !e.altKey
       )
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "S+MC" && e.shiftKey)
+      else if (this.state.nextAbility.bind === "Shift+MidCl" && e.shiftKey)
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "C+MC" && e.ctrlKey)
+      else if (this.state.nextAbility.bind === "Ctrl+MidCl" && e.ctrlKey)
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "A+MC" && e.altKey)
+      else if (this.state.nextAbility.bind === "Alt+MidCl" && e.altKey)
         this.onSubmit();
       else this.onIncorrect();
     } else if (e.button === 2) {
       if (
-        this.state.nextAbility.bind === "RC" &&
+        this.state.nextAbility.bind === "RightCl" &&
         !e.shiftKey &&
         !e.ctrlKey &&
         !e.altKey
       )
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "S+RC" && e.shiftKey)
+      else if (this.state.nextAbility.bind === "Shift+RightCl" && e.shiftKey)
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "C+RC" && e.ctrlKey)
+      else if (this.state.nextAbility.bind === "Ctrl+RightCl" && e.ctrlKey)
         this.onSubmit();
-      else if (this.state.nextAbility.bind === "A+RC" && e.altKey)
+      else if (this.state.nextAbility.bind === "Alt+RightCl" && e.altKey)
         this.onSubmit();
       else this.onIncorrect();
     } else this.onIncorrect();
@@ -151,20 +151,20 @@ class ClassPage extends Component {
     console.log(e.button);
     const tempArray = this.state.abilityArray;
     if (e.button === 0) {
-      if (e.shiftKey) tempArray[index].bind = "S+LC";
-      else if (e.ctrlKey) tempArray[index].bind = "C+LC";
-      else if (e.altKey) tempArray[index].bind = "A+LC";
-      else tempArray[index].bind = "LC";
+      if (e.shiftKey) tempArray[index].bind = "Shift+LeftCl";
+      else if (e.ctrlKey) tempArray[index].bind = "Ctrl+LeftCl";
+      else if (e.altKey) tempArray[index].bind = "Alt+LeftCl";
+      else tempArray[index].bind = "LeftCl";
     } else if (e.button === 1) {
-      if (e.shiftKey) tempArray[index].bind = "S+MC";
-      else if (e.ctrlKey) tempArray[index].bind = "C+MC";
-      else if (e.altKey) tempArray[index].bind = "A+MC";
-      else tempArray[index].bind = "MC";
+      if (e.shiftKey) tempArray[index].bind = "Shift+MidCl";
+      else if (e.ctrlKey) tempArray[index].bind = "Ctrl+MidCl";
+      else if (e.altKey) tempArray[index].bind = "Alt+MidCl";
+      else tempArray[index].bind = "MidCl";
     } else if (e.button === 2) {
-      if (e.shiftKey) tempArray[index].bind = "S+RC";
-      else if (e.ctrlKey) tempArray[index].bind = "C+RC";
-      else if (e.altKey) tempArray[index].bind = "A+RC";
-      else tempArray[index].bind = "RC";
+      if (e.shiftKey) tempArray[index].bind = "Shift+RightCl";
+      else if (e.ctrlKey) tempArray[index].bind = "Ctrl+RightCl";
+      else if (e.altKey) tempArray[index].bind = "Alt+RightCl";
+      else tempArray[index].bind = "RightCl";
     }
     this.setState({ abilityArray: tempArray });
     if (!this.state.nextAbility || this.state.nextAbility.bind === "")
@@ -270,6 +270,7 @@ class ClassPage extends Component {
                   className={"individual-ability-img"}
                 />
                 <input
+                  className="ability-input"
                   value={this.state.abilityArray[index].bind}
                   onChange={e => e.preventDefault()}
                   onFocus={() => this.onFocus(index)}
