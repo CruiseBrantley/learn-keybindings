@@ -15,7 +15,13 @@ import RogueIcon from "./wowiconpack/Spells/rogue.png";
 import PaladinIcon from "./wowiconpack/Spells/paladin.png";
 import WarriorIcon from "./wowiconpack/Spells/warrior.png";
 import MonkIcon from "./wowiconpack/Spells/monk.jpg";
+import MageIcon from "./wowiconpack/Spells/mage.png";
+import DeathKnightIcon from "./wowiconpack/Spells/deathknight.jpg";
 
+const mageURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/12/public/basic?alt=json";
+const deathknightURL =
+  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/11/public/basic?alt=json";
 const warriorURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/10/public/basic?alt=json";
 const paladinURL =
@@ -34,13 +40,13 @@ const hunterURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/3/public/basic?alt=json";
 const priestURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/2/public/basic?alt=json";
-const dhURL =
+const demonhunterURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/1/public/basic?alt=json";
 
 class App extends Component {
   state = {
     hunterSkills: null,
-    dhSkills: null,
+    demonhunterSkills: null,
     priestSkills: null,
     druidSkills: null,
     shamanSkills: null,
@@ -48,7 +54,9 @@ class App extends Component {
     rogueSkills: null,
     monkSkills: null,
     paladinSkills: null,
-    warriorSkills: null
+    warriorSkills: null,
+    mageSkills: null,
+    deathknightSkills: null
   };
 
   // testGoogleAPI = () => {
@@ -105,11 +113,11 @@ class App extends Component {
               Rogue
             </Link>
           </h3>
-          {/* <h3>
+          <h3>
             <Link to="/deathknight" className="link-to-class">
               Death Knight
             </Link>
-          </h3> */}
+          </h3>
           <h3>
             <Link to="/shaman" className="link-to-class">
               Shaman
@@ -135,11 +143,11 @@ class App extends Component {
               Demon Hunter
             </Link>
           </h3>
-          {/* <h3>
+          <h3>
             <Link to="/mage" className="link-to-class">
               Mage
             </Link>
-          </h3> */}
+          </h3>
           <h3>
             <Link to="/warlock" className="link-to-class">
               Warlock
@@ -189,15 +197,16 @@ class App extends Component {
           exact
           path="/demonhunter"
           render={() =>
-            this.state.dhSkills !== null ? (
+            this.state.demonhunterSkills !== null ? (
               <ClassPage
                 wowclass="Demon Hunter"
                 classIcon={DemonHunterIcon}
-                abilities={this.state.dhSkills}
-                whichState="dhSkills"
+                abilities={this.state.demonhunterSkills}
+                whichState="demonhunterSkills"
               />
             ) : (
-              (this.getClassAbilities(dhURL, "dhSkills"), <h1>Loading...</h1>)
+              (this.getClassAbilities(demonhunterURL, "demonhunterSkills"),
+              <h1>Loading...</h1>)
             )
           }
         />
@@ -316,6 +325,40 @@ class App extends Component {
               />
             ) : (
               (this.getClassAbilities(rogueURL, "rogueSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/deathknight"
+          render={() =>
+            this.state.deathknightSkills !== null ? (
+              <ClassPage
+                wowclass="Death Knight"
+                classIcon={DeathKnightIcon}
+                abilities={this.state.deathknightSkills}
+                whichState="deathknightSkills"
+              />
+            ) : (
+              (this.getClassAbilities(deathknightURL, "deathknightSkills"),
+              <h1>Loading...</h1>)
+            )
+          }
+        />
+        <Route
+          exact
+          path="/mage"
+          render={() =>
+            this.state.mageSkills !== null ? (
+              <ClassPage
+                wowclass="Mage"
+                classIcon={MageIcon}
+                abilities={this.state.mageSkills}
+                whichState="mageSkills"
+              />
+            ) : (
+              (this.getClassAbilities(mageURL, "mageSkills"),
               <h1>Loading...</h1>)
             )
           }
