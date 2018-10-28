@@ -98,7 +98,7 @@ class ClassPage extends Component {
 
   onIconClick = e => {
     e.preventDefault();
-    if (e.type === "click") {
+    if (e.button === 0) {
       if (
         this.state.nextAbility.bind === "LC" &&
         !e.shiftKey &&
@@ -113,7 +113,22 @@ class ClassPage extends Component {
       else if (this.state.nextAbility.bind === "A+LC" && e.altKey)
         this.onSubmit();
       else this.onIncorrect();
-    } else if (e.type === "contextmenu") {
+    } else if (e.button === 1) {
+      if (
+        this.state.nextAbility.bind === "MC" &&
+        !e.shiftKey &&
+        !e.ctrlKey &&
+        !e.altKey
+      )
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "S+MC" && e.shiftKey)
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "C+MC" && e.ctrlKey)
+        this.onSubmit();
+      else if (this.state.nextAbility.bind === "A+MC" && e.altKey)
+        this.onSubmit();
+      else this.onIncorrect();
+    } else if (e.button === 2) {
       if (
         this.state.nextAbility.bind === "RC" &&
         !e.shiftKey &&
@@ -131,19 +146,21 @@ class ClassPage extends Component {
     } else this.onIncorrect();
   };
 
-  onChange = (e, index) => {
-    e.preventDefault();
-  };
-
   onImgClick = (e, index) => {
     e.preventDefault();
+    console.log(e.button);
     const tempArray = this.state.abilityArray;
-    if (e.type === "click") {
+    if (e.button === 0) {
       if (e.shiftKey) tempArray[index].bind = "S+LC";
       else if (e.ctrlKey) tempArray[index].bind = "C+LC";
       else if (e.altKey) tempArray[index].bind = "A+LC";
       else tempArray[index].bind = "LC";
-    } else if (e.type === "contextmenu") {
+    } else if (e.button === 1) {
+      if (e.shiftKey) tempArray[index].bind = "S+MC";
+      else if (e.ctrlKey) tempArray[index].bind = "C+MC";
+      else if (e.altKey) tempArray[index].bind = "A+MC";
+      else tempArray[index].bind = "MC";
+    } else if (e.button === 2) {
       if (e.shiftKey) tempArray[index].bind = "S+RC";
       else if (e.ctrlKey) tempArray[index].bind = "C+RC";
       else if (e.altKey) tempArray[index].bind = "A+RC";
@@ -214,14 +231,18 @@ class ClassPage extends Component {
           />
           <h1>{this.props.wowclass}</h1>
         </div>
-        <div className="current-ability-container">
+        <div
+          className="current-ability-container"
+          onContextMenu={e => e.preventDefault()}
+        >
           {this.state.nextAbility ? (
             <div className={"next-ability"}>
               <img
                 className={this.getAnimationClassName()}
                 src={this.state.nextAbility.ability}
-                onClick={this.onIconClick}
-                onContextMenu={this.onIconClick}
+                onClick={e => e.preventDefault()}
+                onContextMenu={e => e.preventDefault()}
+                onMouseDown={this.onIconClick}
                 alt={""}
               />
               <span className={"next-ability-name"}>
@@ -232,21 +253,25 @@ class ClassPage extends Component {
             <h3 className="link-to-class">Try binding some abilities.</h3>
           )}
         </div>
-        <div className={"abilities-mapped"}>
+        <div
+          className={"abilities-mapped"}
+          onContextMenu={e => e.preventDefault()}
+        >
           {this.state.abilityArray.map((item, index) => {
             return (
               <div key={index} className={"individual-ability-mapped"}>
                 <img
                   data-tip={item.name}
                   src={item.ability}
-                  alt={""}
-                  onClick={e => this.onImgClick(e, index)}
-                  onContextMenu={e => this.onImgClick(e, index)}
+                  alt={item.name || ""}
+                  onClick={e => e.preventDefault()}
+                  onContextMenu={e => e.preventDefault()}
+                  onMouseDown={e => this.onImgClick(e, index)}
                   className={"individual-ability-img"}
                 />
                 <input
                   value={this.state.abilityArray[index].bind}
-                  onChange={e => this.onChange(e, index)}
+                  onChange={e => e.preventDefault()}
                   onFocus={() => this.onFocus(index)}
                   onBlur={this.onBlur}
                 />
@@ -254,9 +279,13 @@ class ClassPage extends Component {
             );
           })}
         </div>
-        <button onClick={this.onSave}>Save Bindings</button>
+        <button onClick={this.onSave} className="link-to-class">
+          Save Bindings
+        </button>
         {localStorage.getItem(this.props.whichState) ? (
-          <button onClick={this.onDelete}>Delete Saved Bindings</button>
+          <button onClick={this.onDelete} className="link-to-class">
+            Delete Saved Bindings
+          </button>
         ) : null}
         <ReactTooltip place="bottom" type="dark" effect="solid" />
       </div>
