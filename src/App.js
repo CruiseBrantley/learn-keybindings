@@ -42,6 +42,8 @@ const priestURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/2/public/basic?alt=json";
 const demonhunterURL =
   "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/1/public/basic?alt=json";
+// const testURL =
+//   "https://spreadsheets.google.com/feeds/cells/14VbGH2rpWS4jpsjyxFC3klbSIeRI7eveUxX2Dj0QQIw/1/public/basic?alt=json";
 
 class App extends Component {
   state = {
@@ -56,15 +58,15 @@ class App extends Component {
     paladinSkills: null,
     warriorSkills: null,
     mageSkills: null,
-    deathknightSkills: null
+    deathknightSkills: null,
+    testSkills: null
   };
 
-  // testGoogleAPI = () => {
-  //   const sheets = google.sheets({ version: "v4" });
-  //   sheets.spreadsheets.values
-  //     .get("1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo")
-  //     .then(response => console.log(response))
-  //     .catch(err => console.log("There was an error"));
+  // testNewClassAbilities = (classURL) => {
+  //   return axios.get(classURL).then(response => {
+  //     const classSkillsList = response.data.feed.entry;
+  //     this.setState({ testSkills: classSkillsList[9].content.$t });
+  //   });
   // };
 
   getClassAbilities = (classURL, whichState) => {
@@ -94,9 +96,14 @@ class App extends Component {
   };
 
   render() {
-    // this.testGoogleAPI();
+    // this.testNewClassAbilities(testURL); //images from spreadsheet test
     return (
       <div className="App">
+        {/* {this.state.testSkills ? (
+          <img src={this.state.testSkills} alt="" />
+        ) : (
+          <h1>Loading...</h1>
+        )} */}
         <div className="linked-list">
           <Link to="/warrior">
             <img

@@ -265,7 +265,7 @@ class ClassPage extends Component {
                 <img
                   data-tip={item.name}
                   src={item.ability}
-                  alt={item.name || ""}
+                  alt={item.name}
                   onClick={e => e.preventDefault()}
                   onContextMenu={e => e.preventDefault()}
                   onMouseDown={e => this.onImgClick(e, index)}
