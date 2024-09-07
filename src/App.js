@@ -3,7 +3,6 @@ import { Route, Link } from "react-router-dom";
 import "./App.css";
 import ClassPage from "./components/classpage.js";
 import axios from "axios";
-// import { google } from "googleapis";
 
 import PriestIcon from "./wowiconpack/Spells/priest.png";
 import DemonHunterIcon from "./wowiconpack/Spells/demonhunter.jpg";
@@ -18,32 +17,10 @@ import MonkIcon from "./wowiconpack/Spells/monk.jpg";
 import MageIcon from "./wowiconpack/Spells/mage.png";
 import DeathKnightIcon from "./wowiconpack/Spells/deathknight.jpg";
 
-const mageURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/12/public/basic?alt=json";
-const deathknightURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/11/public/basic?alt=json";
-const warriorURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/10/public/basic?alt=json";
-const paladinURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/9/public/basic?alt=json";
-const monkURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/8/public/basic?alt=json";
-const rogueURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/7/public/basic?alt=json";
-const warlockURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/6/public/basic?alt=json";
-const shamanURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/5/public/basic?alt=json";
-const druidURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/4/public/basic?alt=json";
-const hunterURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/3/public/basic?alt=json";
-const priestURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/2/public/basic?alt=json";
-const demonhunterURL =
-  "https://spreadsheets.google.com/feeds/cells/1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo/1/public/basic?alt=json";
-// const testURL =
-//   "https://spreadsheets.google.com/feeds/cells/14VbGH2rpWS4jpsjyxFC3klbSIeRI7eveUxX2Dj0QQIw/1/public/basic?alt=json";
+// Updated Google Sheets API v4 URL format
+const spreadsheetId = "1GGLOnEyx8BNVWCXns9p2ZPisEg8vjHhqC7_8dGlyePo";
+const baseSheetUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/`;
+const sheetsKey = "AIzaSyCw0jbJyy5hRJifmHi8-u5wpTBMLe3-jAE";
 
 class App extends Component {
   state = {
@@ -58,52 +35,39 @@ class App extends Component {
     paladinSkills: null,
     warriorSkills: null,
     mageSkills: null,
-    deathknightSkills: null,
-    testSkills: null
+    deathknightSkills: null
   };
 
-  // testNewClassAbilities = (classURL) => {
-  //   return axios.get(classURL).then(response => {
-  //     const classSkillsList = response.data.feed.entry;
-  //     this.setState({ testSkills: classSkillsList[9].content.$t });
-  //   });
-  // };
-
-  getClassAbilities = (classURL, whichState) => {
+  getClassAbilities = async (sheetName, whichState) => {
     const localClassSave = localStorage.getItem(whichState);
     if (localClassSave) {
       this.setState({ [whichState]: JSON.parse(localClassSave) });
       return;
     }
 
-    axios.get(classURL).then(response => {
-      const classSkillsList = response.data.feed.entry;
+    try {
+      const response = await axios.get(`${baseSheetUrl}${sheetName}?key=${sheetsKey}`);
+      const data = response.data.values;
       const buildSkills = [];
-      let newSkill = {};
-      for (let i = 3; i < classSkillsList.length; i++) {
-        if (i % 2) {
-          newSkill = { ability: "", bind: "", name: "" };
-          newSkill.name = classSkillsList[i].content.$t;
-        } else {
-          newSkill.ability = require("./wowiconpack/Spells/" +
-            classSkillsList[i].content.$t +
-            ".png");
-          buildSkills.push(newSkill);
-        }
+
+      for (let i = 1; i < data.length; i += 1) {
+        const [, name, iconFilename] = data[i];
+        buildSkills.push({
+          ability: require(`./wowiconpack/Spells/${iconFilename}.png`),
+          bind: "",
+          name: name
+        });
       }
+
       this.setState({ [whichState]: buildSkills });
-    });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   render() {
-    // this.testNewClassAbilities(testURL); //images from spreadsheet test
     return (
       <div className="App">
-        {/* {this.state.testSkills ? (
-          <img src={this.state.testSkills} alt="" />
-        ) : (
-          <h1>Loading...</h1>
-        )} */}
         <div className="linked-list">
           <Link to="/warrior">
             <img
@@ -174,7 +138,7 @@ class App extends Component {
                 whichState="warriorSkills"
               />
             ) : (
-              (this.getClassAbilities(warriorURL, "warriorSkills"),
+              (this.getClassAbilities("Warrior", "warriorSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -191,7 +155,7 @@ class App extends Component {
                 whichState="priestSkills"
               />
             ) : (
-              (this.getClassAbilities(priestURL, "priestSkills"),
+              (this.getClassAbilities("Priest", "priestSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -208,7 +172,7 @@ class App extends Component {
                 whichState="demonhunterSkills"
               />
             ) : (
-              (this.getClassAbilities(demonhunterURL, "demonhunterSkills"),
+              (this.getClassAbilities("Demon Hunter", "demonhunterSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -225,7 +189,7 @@ class App extends Component {
                 whichState="hunterSkills"
               />
             ) : (
-              (this.getClassAbilities(hunterURL, "hunterSkills"),
+              (this.getClassAbilities("Hunter", "hunterSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -242,7 +206,7 @@ class App extends Component {
                 whichState="druidSkills"
               />
             ) : (
-              (this.getClassAbilities(druidURL, "druidSkills"),
+              (this.getClassAbilities("Druid", "druidSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -259,7 +223,7 @@ class App extends Component {
                 whichState="shamanSkills"
               />
             ) : (
-              (this.getClassAbilities(shamanURL, "shamanSkills"),
+              (this.getClassAbilities("Shaman", "shamanSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -276,7 +240,7 @@ class App extends Component {
                 whichState="paladinSkills"
               />
             ) : (
-              (this.getClassAbilities(paladinURL, "paladinSkills"),
+              (this.getClassAbilities("Paladin", "paladinSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -293,7 +257,7 @@ class App extends Component {
                 whichState="monkSkills"
               />
             ) : (
-              (this.getClassAbilities(monkURL, "monkSkills"),
+              (this.getClassAbilities("Monk", "monkSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -310,7 +274,7 @@ class App extends Component {
                 whichState="warlockSkills"
               />
             ) : (
-              (this.getClassAbilities(warlockURL, "warlockSkills"),
+              (this.getClassAbilities("Warlock", "warlockSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -327,7 +291,7 @@ class App extends Component {
                 whichState="rogueSkills"
               />
             ) : (
-              (this.getClassAbilities(rogueURL, "rogueSkills"),
+              (this.getClassAbilities("Rogue", "rogueSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -344,7 +308,7 @@ class App extends Component {
                 whichState="deathknightSkills"
               />
             ) : (
-              (this.getClassAbilities(deathknightURL, "deathknightSkills"),
+              (this.getClassAbilities("DeathKnight", "deathknightSkills"),
               <h1>Loading...</h1>)
             )
           }
@@ -361,7 +325,7 @@ class App extends Component {
                 whichState="mageSkills"
               />
             ) : (
-              (this.getClassAbilities(mageURL, "mageSkills"),
+              (this.getClassAbilities("Mage", "mageSkills"),
               <h1>Loading...</h1>)
             )
           }
